@@ -3,12 +3,14 @@ const pipe = document.querySelector(".pipe");
 const gameBoard = document.querySelector(".game-board");
 let score = document.querySelector(".score");
 let point = 0;
+const audio = document.querySelector('.audio');
+audio.volume = 0.03;
+
 
 setInterval(
   (pontuacao = () => {
     point += 10;
     score.innerHTML = `${point}`;
-    console.log(point);
   }),
   500
 );
@@ -46,6 +48,9 @@ const loop = setInterval(() => {
     mario.src = "./assets/img/game-over.png";
     mario.style.width = "75px";
     mario.style.marginLeft = "50px";
+    
+    audio.src = './assets/audio/gameOver.wav';
+    audio.loop = false;
 
     clearInterval(loop);
     gameOverDashboard();
@@ -53,3 +58,4 @@ const loop = setInterval(() => {
 }, 10);
 
 document.addEventListener("keydown", jump);
+
