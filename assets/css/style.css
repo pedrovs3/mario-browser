@@ -6,7 +6,7 @@
 
 .game-board{
     width: 100vw;
-    height: 500px;
+    height: 70vh;
     border-bottom: 15px solid rgb(0, 163, 9);
     margin: 0 auto;
     position: relative;
@@ -31,6 +31,7 @@
 .clouds{
     position: absolute;
     width: 550px;
+    top: 10%;
     animation: clouds-animation 9s infinite linear;
 }
 
