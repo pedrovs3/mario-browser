@@ -3,9 +3,8 @@ const pipe = document.querySelector(".pipe");
 const gameBoard = document.querySelector(".game-board");
 let score = document.querySelector(".score");
 let point = 0;
-const audio = document.querySelector('.audio');
+const audio = document.querySelector(".audio");
 audio.volume = 0.03;
-
 
 setInterval(
   (pontuacao = () => {
@@ -24,7 +23,7 @@ const jump = () => {
 };
 
 gameOverDashboard = () => {
-  gameBoard.innerHTML += `<div class="lose"><h2>Game Over</h2><p>sua pontuação: ${point} </p><button id="restart" >Tentar novamente</button></div>`;
+  gameBoard.innerHTML += `<div class="lose"><h2>Game Over</h2><p>Pontuação atual: ${point} </p> <p>Pontuação mais alta: ${localStorage.getItem("highScore")} </p><button id="restart" >Tentar novamente</button></div>`;
   const restartButton = document.querySelector("#restart");
 
   restartButton.addEventListener("click", function () {
@@ -48,15 +47,29 @@ const loop = setInterval(() => {
     mario.src = "./assets/img/game-over.png";
     mario.style.width = "75px";
     mario.style.marginLeft = "50px";
-    
-    audio.src = './assets/audio/gameOver.wav';
+
+    audio.src = "./assets/audio/gameOver.wav";
     audio.loop = false;
 
     clearInterval(loop);
     gameOverDashboard();
+    addSaveHighScore(point);
   }
 }, 10);
 
-document.addEventListener("keydown", jump);
-document.addEventListener('click', jump);
+function saveHighScore(point) {
+  let highScore = JSON.stringify(point);
+  localStorage.setItem("highScore", highScore);
+  console.log(highScore);
+}
 
+function addSaveHighScore(point) {
+  const highScoreJSON = localStorage.getItem("highScore");
+
+  if (highScoreJSON < point) {
+    localStorage.setItem("highScore", JSON.stringify(point));
+  }
+}
+
+document.addEventListener("keydown", jump);
+document.addEventListener("click", jump);
